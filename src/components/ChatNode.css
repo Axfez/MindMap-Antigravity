@@ -1,0 +1,141 @@
+.chat-node {
+  background: rgba(30, 30, 35, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  width: 380px;
+  color: #fff;
+  font-family: 'Inter', system-ui, sans-serif;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  transition: transform 0.2s, box-shadow 0.2s;
+  overflow: hidden;
+}
+
+.chat-node:hover {
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.chat-content {
+  padding: 20px;
+  font-size: 14px;
+}
+
+.root-node h3 {
+  margin: 0 0 10px 0;
+  font-size: 18px;
+  background: linear-gradient(135deg, #a8c0ff 0%, #3f2b96 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.root-node p {
+  color: #a0a0a5;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.question {
+  color: #a8c0ff;
+  font-weight: 500;
+  margin-bottom: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.answer {
+  color: #d1d1d6;
+  line-height: 1.6;
+  max-height: 250px;
+  overflow-y: auto;
+  padding-right: 5px;
+}
+
+.answer::-webkit-scrollbar {
+  width: 6px;
+}
+.answer::-webkit-scrollbar-track {
+  background: transparent;
+}
+.answer::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+.answer::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.interactions {
+  background: rgba(15, 15, 20, 0.5);
+  padding: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.interactions input {
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(0, 0, 0, 0.3);
+  color: white;
+  margin-bottom: 12px;
+  font-family: inherit;
+  font-size: 14px;
+  box-sizing: border-box;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.interactions input:focus {
+  border-color: #6a82fb;
+  box-shadow: 0 0 0 2px rgba(106, 130, 251, 0.2);
+}
+
+.buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.buttons button {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 12px;
+  transition: all 0.2s;
+  letter-spacing: 0.5px;
+}
+
+.btn-main {
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  color: #000;
+}
+
+.btn-main:hover {
+  filter: brightness(1.1);
+  box-shadow: 0 5px 15px rgba(79, 172, 254, 0.4);
+}
+
+.btn-branch {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #fff;
+}
+
+.btn-branch:hover {
+  filter: brightness(1.1);
+  box-shadow: 0 5px 15px rgba(118, 75, 162, 0.4);
+}
+
+.react-flow__handle {
+  width: 10px;
+  height: 10px;
+  border: 2px solid rgba(255,255,255,0.8);
+}
+
+.handle-top { background: #fff; }
+.handle-bottom { background: #4facfe; }
+.handle-right { background: #764ba2; }

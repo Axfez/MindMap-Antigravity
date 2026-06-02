@@ -1,20 +1,20 @@
 .chat-node {
-  background: rgba(30, 30, 35, 0.85);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 16px;
+  background: var(--color-bg-node);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid var(--color-text-dark);
+  border-radius: 6px;
   width: 380px;
-  color: #fff;
-  font-family: 'Inter', system-ui, sans-serif;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.05);
-  transition: transform 0.2s, box-shadow 0.2s;
+  color: var(--color-text-readable);
+  font-family: 'Fira Code', 'Share Tech Mono', monospace;
+  box-shadow: 0 0 15px var(--color-glow-light), inset 0 0 5px var(--color-glow-faint);
+  transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
   overflow: hidden;
 }
 
 .chat-node:hover {
-  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 25px var(--color-glow-medium), inset 0 0 10px var(--color-glow-light);
+  border-color: var(--color-matrix-neon);
 }
 
 .chat-content {
@@ -25,27 +25,30 @@
 .root-node h3 {
   margin: 0 0 10px 0;
   font-size: 18px;
-  background: linear-gradient(135deg, #a8c0ff 0%, #3f2b96 100%);
+  font-family: 'Share Tech Mono', monospace;
+  background: linear-gradient(135deg, var(--color-matrix-neon) 0%, var(--color-text-dark) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 10px var(--color-glow-light);
 }
 
 .root-node p {
-  color: #a0a0a5;
+  color: var(--color-text-secondary);
   margin: 0;
   line-height: 1.5;
 }
 
 .question {
-  color: #a8c0ff;
-  font-weight: 500;
+  color: var(--color-matrix-neon);
+  font-weight: 600;
   margin-bottom: 12px;
   padding-bottom: 12px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid var(--color-glow-light);
+  text-shadow: 0 0 5px var(--color-glow-light);
 }
 
 .answer {
-  color: #d1d1d6;
+  color: var(--color-text-secondary);
   line-height: 1.6;
   max-height: 250px;
   overflow-y: auto;
@@ -59,26 +62,26 @@
   background: transparent;
 }
 .answer::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 10px;
+  background: var(--color-glow-light);
+  border-radius: 3px;
 }
 .answer::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.2);
+  background: var(--color-glow-medium);
 }
 
 .interactions {
-  background: rgba(15, 15, 20, 0.5);
+  background: var(--color-bg-node-dark);
   padding: 16px;
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  border-top: 1px solid var(--color-glow-light);
 }
 
 .interactions input {
   width: 100%;
   padding: 12px 16px;
-  border-radius: 8px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  background: rgba(0, 0, 0, 0.3);
-  color: white;
+  border-radius: 4px;
+  border: 1px solid var(--color-matrix-dark);
+  background: var(--color-bg-pure);
+  color: var(--color-matrix-neon);
   margin-bottom: 12px;
   font-family: inherit;
   font-size: 14px;
@@ -88,8 +91,8 @@
 }
 
 .interactions input:focus {
-  border-color: #6a82fb;
-  box-shadow: 0 0 0 2px rgba(106, 130, 251, 0.2);
+  border-color: var(--color-matrix-neon);
+  box-shadow: 0 0 8px var(--color-glow-medium);
 }
 
 .buttons {
@@ -100,42 +103,123 @@
 .buttons button {
   flex: 1;
   padding: 10px;
-  border: none;
-  border-radius: 8px;
+  border: 1px solid var(--color-matrix-neon);
+  border-radius: 4px;
   font-weight: 600;
   cursor: pointer;
-  font-family: inherit;
-  font-size: 12px;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 13px;
   transition: all 0.2s;
   letter-spacing: 0.5px;
 }
 
 .btn-main {
-  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-  color: #000;
+  background: var(--color-matrix-neon);
+  color: var(--color-bg-pure);
 }
 
 .btn-main:hover {
-  filter: brightness(1.1);
-  box-shadow: 0 5px 15px rgba(79, 172, 254, 0.4);
+  background: var(--color-matrix-medium);
+  box-shadow: 0 0 15px var(--color-glow-heavy);
 }
 
 .btn-branch {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: #fff;
+  background: transparent;
+  color: var(--color-matrix-neon);
 }
 
 .btn-branch:hover {
-  filter: brightness(1.1);
-  box-shadow: 0 5px 15px rgba(118, 75, 162, 0.4);
+  background: var(--color-matrix-neon);
+  color: var(--color-bg-pure);
+  box-shadow: 0 0 15px var(--color-glow-heavy);
 }
 
 .react-flow__handle {
   width: 10px;
   height: 10px;
-  border: 2px solid rgba(255,255,255,0.8);
+  border: 2px solid var(--color-matrix-neon) !important;
+  background: var(--color-bg-pure) !important;
 }
 
-.handle-top { background: #fff; }
-.handle-bottom { background: #4facfe; }
-.handle-right { background: #764ba2; }
+.handle-top {
+  border-radius: 50% !important;
+}
+.handle-bottom {
+  border-radius: 50% !important;
+}
+.handle-right {
+  border-radius: 50% !important;
+}
+
+/* Code and block text rendering styles */
+.code-block-container {
+  background: var(--color-bg-code);
+  border: 1px solid var(--color-matrix-border-code);
+  border-radius: 4px;
+  margin: 12px 0;
+  overflow: hidden;
+}
+
+.code-block-header {
+  background: var(--color-glow-faint);
+  padding: 6px 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--color-matrix-deep);
+}
+
+.code-block-lang {
+  font-size: 11px;
+  color: var(--color-matrix-neon);
+  font-family: 'Share Tech Mono', monospace;
+  text-transform: uppercase;
+}
+
+.code-block-copy {
+  background: transparent;
+  border: none;
+  color: var(--color-text-dark);
+  font-size: 11px;
+  cursor: pointer;
+  font-family: 'Share Tech Mono', monospace;
+  transition: color 0.2s;
+  padding: 2px 6px;
+}
+
+.code-block-copy:hover {
+  color: var(--color-matrix-neon);
+}
+
+.code-block-pre {
+  margin: 0;
+  padding: 12px;
+  overflow-x: auto;
+  font-size: 13px;
+  color: var(--color-matrix-neon);
+  text-align: left;
+}
+
+.code-block-pre code {
+  font-family: 'Fira Code', monospace;
+}
+
+.inline-code {
+  background: var(--color-glow-light);
+  border: 1px solid var(--color-glow-light);
+  color: var(--color-matrix-neon);
+  padding: 1px 4px;
+  border-radius: 3px;
+  font-size: 13px;
+  font-family: 'Fira Code', monospace;
+}
+
+.text-paragraph {
+  margin: 0 0 12px 0;
+  line-height: 1.6;
+}
+
+.text-paragraph:last-child {
+  margin-bottom: 0;
+}
+

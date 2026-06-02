@@ -1,9 +1,46 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Share+Tech+Mono&display=swap');
+
 
 :root {
-  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-family: 'Fira Code', 'Share Tech Mono', monospace;
   color-scheme: dark;
-  background-color: #050505;
+  
+  /* ==========================================================================
+     PALETA DE COLORES CENTRALIZADA - ESTILO MATRIX
+     ========================================================================== */
+
+  /* --- Colores de Fondo (Backgrounds) --- */
+  --color-bg-base: #020202;           /* Fondo principal de la ventana (casi negro) */
+  --color-bg-pure: #000000;           /* Negro puro para entradas y contrastes altos */
+  --color-bg-center-glow: #001a05;    /* Tono verde oscuro para el centro del degradado de fondo */
+  --color-bg-dialog-overlay: rgba(0, 0, 0, 0.85); /* Fondo semitransparente para el diálogo modal de API */
+  --color-bg-panel: rgba(0, 5, 0, 0.95);    /* Fondo de paneles flotantes (API box, controles, overlays) */
+  --color-bg-node: rgba(0, 10, 2, 0.92);     /* Fondo principal de las tarjetas/nodos de chat */
+  --color-bg-node-dark: rgba(0, 4, 1, 0.8);  /* Fondo de la barra de interacción (inputs/botones) de los nodos */
+  --color-bg-code: #000502;           /* Fondo del contenedor para bloques de código multilínea */
+  
+  /* --- Colores de Acentos Verdes (Matrix Colors) --- */
+  --color-matrix-neon: #00ff66;       /* Verde neón brillante para caminos principales, bordes activos y focos */
+  --color-matrix-medium: #00aa33;     /* Verde medio para caminos secundarios (branching) y estados hover */
+  --color-matrix-dark: #005511;       /* Verde oliva para bordes inactivos y bordes de inputs */
+  --color-matrix-deep: #003311;       /* Verde muy oscuro para divisiones y separadores internos */
+  --color-matrix-border-code: #00441a;/* Verde intermedio forestal para el borde de los bloques de código */
+  
+  /* --- Colores de Texto --- */
+  --color-text-primary: #e00404;      /* Texto de títulos e indicaciones de alta jerarquía (glowing) */
+  --color-text-secondary: #88cfa6;    /* Texto secundario de descripciones y respuestas del chat */
+  --color-text-readable: #a3ffd6;     /* Texto de alta legibilidad para el cuerpo de los nodos */
+  --color-text-dark: #008833;         /* Texto verde oscuro para botones secundarios y asas de conexión */
+  --color-text-error: #ff6b6b;        /* Rojo coral para indicar errores de clave API o validación */
+  
+  /* --- Efectos de Resplandor y Opacidades (Glows & Alphas) --- */
+  --color-glow-heavy: rgba(0, 255, 102, 0.6);   /* Brillo intenso en hovers de botones y elementos clave */
+  --color-glow-medium: rgba(0, 255, 102, 0.4);  /* Brillo medio para focos de inputs y títulos */
+  --color-glow-light: rgba(0, 255, 102, 0.2);   /* Brillo ligero para sombras de nodos y bordes suaves */
+  --color-glow-subtle: rgba(0, 255, 102, 0.08); /* Brillo tenue usado para los puntos del fondo de React Flow */
+  --color-glow-faint: rgba(0, 255, 102, 0.05);  /* Brillo muy bajo para sombras internas en tarjetas */
+
+  background-color: var(--color-bg-base);
 }
 
 body, html {
@@ -12,9 +49,12 @@ body, html {
   width: 100%;
   height: 100%;
   overflow: hidden;
+  background-color: var(--color-bg-base);
 }
 
 #root {
   width: 100%;
   height: 100%;
 }
+
+

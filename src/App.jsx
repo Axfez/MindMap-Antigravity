@@ -105,10 +105,10 @@ export default function App() {
           target: newId,
           sourceHandle: direction,
           animated: true,
-          style: { stroke: direction === "main" ? "#4facfe" : "#764ba2", strokeWidth: 2 },
+          style: { stroke: direction === "main" ? "#00ff66" : "#00aa33", strokeWidth: 2 },
           markerEnd: { 
             type: MarkerType.ArrowClosed,
-            color: direction === "main" ? "#4facfe" : "#764ba2",
+            color: direction === "main" ? "#00ff66" : "#00aa33",
           }
         }
       ]);
@@ -175,7 +175,7 @@ export default function App() {
         minZoom={0.1}
         maxZoom={4}
       >
-        <Background color="rgba(255,255,255,0.05)" gap={20} size={1} />
+        <Background color="rgba(0, 255, 102, 0.08)" gap={20} size={1.5} />
         <Controls />
       </ReactFlow>
     </div>

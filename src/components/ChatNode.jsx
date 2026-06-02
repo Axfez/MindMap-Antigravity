@@ -2,6 +2,34 @@ import { Handle, Position } from "reactflow";
 import { useState } from "react";
 import "./ChatNode.css";
 
+function CodeBlock({ language, code }) {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(code);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch (err) {
+      console.error("Failed to copy code: ", err);
+    }
+  };
+
+  return (
+    <div className="code-block-container">
+      <div className="code-block-header">
+        <span className="code-block-lang">{language || "code"}</span>
+        <button className="code-block-copy" onClick={handleCopy}>
+          {copied ? "COPIADO!" : "COPIAR"}
+        </button>
+      </div>
+      <pre className="code-block-pre">
+        <code>{code}</code>
+      </pre>
+    </div>
+  );
+}
+
 export function ChatNode({ data }) {
   const [inputVal, setInputVal] = useState("");
 
@@ -17,9 +45,42 @@ export function ChatNode({ data }) {
     setInputVal("");
   };
 
+  const renderAnswer = (text) => {
+    if (!text) return null;
+
+    // Split text by markdown code blocks (e.g. ```javascript\nconsole.log("hello");\n```)
+    const parts = text.split(/(```[\s\S]*?```)/g);
+
+    return parts.map((part, index) => {
+      if (part.startsWith('```') && part.endsWith('```')) {
+        const match = part.match(/```(\w*)\n([\s\S]*?)```/);
+        const language = match ? match[1] : '';
+        const code = match ? match[2] : part.slice(3, -3);
+
+        return <CodeBlock key={index} language={language} code={code.trim()} />;
+      } else {
+        const paragraphs = part.split(/\n\n+/);
+        return paragraphs.map((pText, pIdx) => {
+          if (!pText.trim()) return null;
+
+          // Split inline code (e.g. `const x = 1;`)
+          const inlineParts = pText.split(/(`[^`\n]+`)/g);
+          const content = inlineParts.map((subPart, subIdx) => {
+            if (subPart.startsWith('`') && subPart.endsWith('`')) {
+              return <code key={subIdx} className="inline-code">{subPart.slice(1, -1)}</code>;
+            }
+            return subPart;
+          });
+
+          return <p key={`${index}-${pIdx}`} className="text-paragraph">{content}</p>;
+        });
+      }
+    });
+  };
+
   return (
     <div className="chat-node">
-      <Handle type="target" position={Position.Top} className="handle-top" />
+      {!data.isRoot && <Handle type="target" position={Position.Top} className="handle-top" />}
       
       {data.isRoot ? (
         <div className="chat-content root-node">
@@ -32,7 +93,7 @@ export function ChatNode({ data }) {
             <strong>Pregunta:</strong> {data.question}
           </div>
           <div className="answer nowheel nodrag nopan">
-            {data.answer}
+            {renderAnswer(data.answer)}
           </div>
         </div>
       )}
@@ -59,7 +120,9 @@ export function ChatNode({ data }) {
       )}
       
       <Handle type="source" position={Position.Bottom} id="main" className="handle-bottom" />
-      <Handle type="source" position={Position.Right} id="branch" className="handle-right" />
+      {!data.isRoot && <Handle type="source" position={Position.Right} id="branch" className="handle-right" />}
     </div>
   );
 }
+
+

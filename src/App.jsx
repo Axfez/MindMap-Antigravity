@@ -1,25 +1,35 @@
-import { useState, useCallback, useRef } from 'react';
+import { useState } from 'react';
 import ReactFlow, {
   Background,
   Controls,
-  applyNodeChanges,
-  applyEdgeChanges,
   useEdgesState,
   useNodesState,
   MarkerType
 } from 'reactflow';
 import 'reactflow/dist/style.css';
 import { ChatNode } from './components/ChatNode';
-import { askGemini, hasApiKey, saveApiKey, testApiKey } from './services/gemini';
+import { getProviders, getCurrentProvider, getCurrentModel, setCurrentModel, setProvider, hasApiKey, saveApiKey, testApiKey, ask } from './services/aiService';
 import './App.css';
 
 const nodeTypes = { chatNode: ChatNode };
 
+const providerList = getProviders();
+const initialProvider = getCurrentProvider();
+
 export default function App() {
   const [apiKeyInput, setApiKeyInput] = useState("");
   const [showApiKeyDialog, setShowApiKeyDialog] = useState(!hasApiKey());
+  const [selectedProviderId, setSelectedProviderId] = useState(initialProvider.id);
   const [isVerifyingKey, setIsVerifyingKey] = useState(false);
   const [keyError, setKeyError] = useState("");
+
+  const [selectedModel, setSelectedModel] = useState(getCurrentModel());
+
+  const handleModelChange = (e) => {
+    const modelId = e.target.value;
+    setSelectedModel(modelId);
+    setCurrentModel(modelId);
+  };
   
   const [nodes, setNodes, onNodesChange] = useNodesState([
     {
@@ -31,6 +41,14 @@ export default function App() {
   ]);
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
   const [isLoading, setIsLoading] = useState(false);
+
+  const handleProviderChange = (id) => {
+    setSelectedProviderId(id);
+    setApiKeyInput("");
+    setKeyError("");
+    setProvider(id);
+    setSelectedModel(getCurrentModel());
+  };
 
   const onMain = async (parentId, question) => {
     await createChildNode(parentId, question, "main");
@@ -53,7 +71,7 @@ export default function App() {
   const createChildNode = async (parentId, question, direction) => {
     setIsLoading(true);
     try {
-      const answer = await askGemini(question);
+      const answer = await ask(question);
       
       const newId = `node_${Date.now()}`;
       
@@ -120,18 +138,39 @@ export default function App() {
     }
   };
 
+  const currentProviderInfo = providerList.find(p => p.id === selectedProviderId);
+
   if (showApiKeyDialog) {
     return (
       <div className="api-key-dialog">
         <div className="api-key-box">
           <div className="logo">🧠</div>
-          <h2>Configurar Gemini AI</h2>
-          <p>Ingresa tu API Key de Gemini para comenzar a usar el mapa mental.</p>
+          <h2>Configurar {currentProviderInfo.name} AI</h2>
+          <p>Ingresa tu API Key de {currentProviderInfo.name} para comenzar a usar el mapa mental.</p>
+          <div className="provider-selector">
+            {providerList.map(p => (
+              <button
+                key={p.id}
+                className={`provider-option ${selectedProviderId === p.id ? 'active' : ''}`}
+                onClick={() => handleProviderChange(p.id)}
+              >
+                {p.name}
+              </button>
+            ))}
+          </div>
+          <div className="model-selector">
+            <label className="model-label">Modelo</label>
+            <select className="model-select" value={selectedModel} onChange={handleModelChange}>
+              {currentProviderInfo.models.map(m => (
+                <option key={m.id} value={m.id}>{m.name}</option>
+              ))}
+            </select>
+          </div>
           <input 
             type="password" 
             value={apiKeyInput}
             onChange={(e) => { setApiKeyInput(e.target.value); setKeyError(""); }}
-            placeholder="AIzaSy..."
+            placeholder={currentProviderInfo.keyPrefix}
             autoFocus
           />
           {keyError && <p style={{color: '#ff6b6b', margin: '10px 0', fontSize: '13px'}}>{keyError}</p>}
@@ -141,6 +180,7 @@ export default function App() {
             if (apiKeyInput.trim()) {
               setIsVerifyingKey(true);
               setKeyError("");
+              setProvider(selectedProviderId);
               const isValid = await testApiKey(apiKeyInput.trim());
               setIsVerifyingKey(false);
               
@@ -159,6 +199,7 @@ export default function App() {
 
   return (
     <div className="app-container">
+      <button className="settings-btn" onClick={() => setShowApiKeyDialog(true)} title="Cambiar proveedor AI">⚙️</button>
       {isLoading && (
         <div className="loading-overlay">
           <div className="spinner"></div>
